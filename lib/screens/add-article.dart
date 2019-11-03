@@ -1,3 +1,4 @@
+import 'package:clothes_picker/widgets/QuickPopup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +114,12 @@ class _AddArticleScreenState extends State<AddArticleScreen> {
                             children: snapshot.data.documents.map((DocumentSnapshot document) {
                               return ListTile(
                                 onTap: () => {
-                                _addToWardrobe(document.documentID),
+                                  _addToWardrobe(document.documentID),
+                                  showDialog(
+                                    context: context, 
+                                    builder: (_) => FunkyOverlay("Added " + document.data['name'])
+                                  ),
+                                  print(document.data)
                                 },
                                 leading: CircleAvatar(
                                   backgroundImage: NetworkImage(document["imageUrl"]) != null ? 
